@@ -26,7 +26,54 @@ namespace SpiralMatrix
         /// </example>
         public static int[,] GetMatrix(int size)
         {
-            throw new NotImplementedException("You need to implement this method.");
+            if (size <= 0)
+            {
+                throw new ArgumentException("Size cannot be less or equal zero");
+            }
+
+            int[,] matrix = new int[size, size];
+
+            int num = 1;
+            int rowStart = 0;
+            int rowEnd = size - 1;
+            int colStart = 0;
+            int colEnd = size - 1;
+
+            while (num <= size * size)
+            {
+                for (int i = colStart; i <= colEnd; i++)
+                {
+                    matrix[rowStart, i] = num;
+                    num++;
+                }
+
+                rowStart++;
+
+                for (int i = rowStart; i <= rowEnd; i++)
+                {
+                    matrix[i, colEnd] = num;
+                    num++;
+                }
+
+                colEnd--;
+
+                for (int i = colEnd; i >= colStart; i--)
+                {
+                    matrix[rowEnd, i] = num;
+                    num++;
+                }
+
+                rowEnd--;
+                for (int i = rowEnd; i >= rowStart; i--)
+                {
+                    matrix[i, colStart] = num;
+                    num++;
+                }
+
+                colStart++;
+            }
+
+            return matrix;
         }
     }
 }
